@@ -28,13 +28,17 @@ const PAYSTACK_SECRET = "sk_test_e9e204942a7194499"; // Add the closing quote he
 
 // Confirm Payment Endpoint
 app.post("/confirm-payment", async (req, res) => {
-    const { reference, email, deviceId } = req.body; // Fix body access
+    const { reference, email, deviceId } = req.body;
+
+    if (!reference || !email || !deviceId) {
+        return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
 
     try {
         // Verify Payment with Paystack
         const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
             headers: {
-                Authorization: `Bearer ${PAYSTACK_SECRET}`
+                Authorization: `Bearer ${PAYSTACK_SECRET}`,
             },
         });
 
@@ -42,26 +46,25 @@ app.post("/confirm-payment", async (req, res) => {
 
         if (paymentData.status === "success") {
             // Save to Firestore
-            const authCode = `AUTH-${Math.random().toString(36).substr(2, 9)}`;
+            const authCode = `AUTH-${Math.random().toString(36).substr(2, 10).toUpperCase()}`;
             await db.collection("payments").doc(deviceId).set({
                 email: email,
                 deviceId: deviceId,
                 amount: paymentData.amount,
                 status: "success",
                 authorizationCode: authCode,
-                date: admin.firestore.Timestamp.now()
+                date: admin.firestore.Timestamp.now(),
             });
 
-            res.json({ success: true, authorizationCode: authCode });
+            return res.json({ success: true, authorizationCode: authCode });
         } else {
-            res.json({ success: false, message: "Payment failed" });
+            return res.status(400).json({ success: false, message: "Payment failed" });
         }
     } catch (error) {
-        console.error("Error verifying payment:", error);
-        res.status(500).json({ success: false, message: "Server error" });
+        console.error("Error verifying payment:", error.message);
+        return res.status(500).json({ success: false, message: "Server error during payment verification" });
     }
 });
-
 // Validate Authorization Code Endpoint
 app.post("/validate-auth-code", async (req, res) => {
     const { deviceId, authCode } = req.body;
