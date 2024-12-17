@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "jambiq-65c7a",
+  "private_key_id": "e52695f846dae47028768e878ecf6>
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMII>
+  "client_email": "firebase-adminsdk-3wq7p@jambiq->
+  "client_id": "114208281413847202372",
+  "auth_uri": "https://accounts.google.com/o/oauth>
+  "token_uri": "https://oauth2.googleapis.com/toke>
+  "auth_provider_x509_cert_url": "https://www.goog>
+  "client_x509_cert_url": "https://www.googleapis.>
+  "universe_domain": "googleapis.com"
+}
