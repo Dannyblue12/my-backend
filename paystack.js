@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 // Paystack Secret Key
-const PAYSTACK_SECRET = "sk_test_e9e204942a7194499"; // Add the closing quote here
+const PAYSTACK_SECRET = "sk_test_e9e204942a71944991c42534ede108fd6594ca45"; // Add the closing quote here
 
 // Confirm Payment Endpoint
 app.post("/confirm-payment", async (req, res) => {
