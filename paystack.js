@@ -5,18 +5,16 @@ const axios = require("axios");
 const cors = require("cors");
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require("./firebase-key.json"); // Fix the file extension
+const serviceAccount = require("./firebase-key.json");
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccount),
 });
 
 const db = admin.firestore();
 
 const app = express();
 app.use(bodyParser.json());
-
-// Enable CORS
-app.use(cors());
+app.use(cors()); // Enable CORS for cross-origin requests
 
 // Add a root route
 app.get("/", (req, res) => {
@@ -24,15 +22,11 @@ app.get("/", (req, res) => {
 });
 
 // Paystack Secret Key
-const PAYSTACK_SECRET = "sk_test_e9e204942a71944991c42534ede108fd6594ca45"; // Add the closing quote here
+const PAYSTACK_SECRET = "sk_test_e9e204942a71944991c42534ede108fd6594ca45"; // Replace with your Paystack secret key
 
 // Confirm Payment Endpoint
 app.post("/confirm-payment", async (req, res) => {
     const { reference, email, deviceId } = req.body;
-
-    if (!reference || !email || !deviceId) {
-        return res.status(400).json({ success: false, message: "Missing required fields" });
-    }
 
     try {
         // Verify Payment with Paystack
@@ -44,9 +38,11 @@ app.post("/confirm-payment", async (req, res) => {
 
         const paymentData = response.data.data;
 
-        if (paymentData && paymentData.status === "success") {
+        if (paymentData.status === "success") {
+            // Generate a unique authorization code
+            const authCode = `AUTH-${Math.random().toString(36).substr(2, 8)}`;
+
             // Save to Firestore
-            const authCode = `AUTH-${Math.random().toString(36).substr(2, 10).toUpperCase()}`;
             await db.collection("payments").doc(deviceId).set({
                 email: email,
                 deviceId: deviceId,
@@ -56,46 +52,43 @@ app.post("/confirm-payment", async (req, res) => {
                 date: admin.firestore.Timestamp.now(),
             });
 
-            return res.json({ success: true, authorizationCode: authCode });
+            // Send success response with the authorization code
+            res.json({ success: true, authorizationCode: authCode });
         } else {
-            return res.status(400).json({ success: false, message: "Payment verification failed" });
+            res.status(400).json({ success: false, message: "Payment not successful." });
         }
     } catch (error) {
-        console.error("Error during payment verification:", error.response?.data || error.message);
-        return res.status(500).json({
-            success: false,
-            message: "Server error during payment verification",
-            error: error.response?.data || error.message,
-        });
+        console.error("Error verifying payment:", error.message);
+        res.status(500).json({ success: false, message: "Error verifying payment." });
     }
 });
+
 // Validate Authorization Code Endpoint
 app.post("/validate-auth-code", async (req, res) => {
     const { deviceId, authCode } = req.body;
 
     try {
-        const paymentDoc = await db.collection("payments").doc(deviceId).get(); // Access document correctly
+        const paymentDoc = await db.collection("payments").doc(deviceId).get();
 
         if (paymentDoc.exists) {
             const paymentData = paymentDoc.data();
 
             if (paymentData.authorizationCode === authCode) {
-                res.json({ success: true, message: "Authorization code valid" });
+                res.json({ success: true, message: "Authorization code is valid." });
             } else {
-                res.json({ success: false, message: "Invalid authorization code" });
+                res.json({ success: false, message: "Invalid authorization code." });
             }
         } else {
-            res.json({ success: false, message: "No payment found for this device" });
+            res.json({ success: false, message: "No payment record found for this device." });
         }
     } catch (error) {
-        console.error("Error validating authorization code:", error);
-        res.status(500).json({ success: false, message: "Server error" });
+        console.error("Error validating authorization code:", error.message);
+        res.status(500).json({ success: false, message: "Error validating authorization code." });
     }
 });
 
 // Start Server
-const PORT = process.env.PORT || 3000; // Use environment variable for port
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-  
