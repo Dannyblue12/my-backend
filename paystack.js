@@ -5,7 +5,7 @@ const axios = require("axios");
 const cors = require("cors");
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require("./firebase-key.json");
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
