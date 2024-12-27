@@ -101,17 +101,17 @@ app.get("/quizzes", async (req, res) => {
 
         const paymentData = paymentDoc.data();
 
-        // Check if the authorization code is valid
+        // Check if the authorization code is valid and payment was successful
         if (paymentData.authorizationCode === authCode && paymentData.status === "success") {
             // Authorized user - fetch full quiz
             const quizSnapshot = await db.collection("quizzes").where("type", "==", "full").get();
             const quizzes = quizSnapshot.docs.map(doc => doc.data());
-            return res.json(quizzes); // Send the full quizzes
+            return res.json({ success: true, quizzes }); // Send the full quizzes
         } else {
             // Unauthorized user - fetch partial quiz
             const quizSnapshot = await db.collection("quizzes").where("type", "==", "partial").get();
             const quizzes = quizSnapshot.docs.map(doc => doc.data());
-            return res.json(quizzes); // Send the partial quizzes
+            return res.json({ success: true, quizzes }); // Send the partial quizzes
         }
     } catch (error) {
         console.error("Error fetching quizzes:", error.message);
