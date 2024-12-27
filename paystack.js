@@ -87,121 +87,37 @@ app.post("/validate-auth-code", async (req, res) => {
     }
 });
 
-// Fetch Quiz Questions Endpoint
+// Fetch quizzes (based on successful payment verification)
 app.get("/quizzes", async (req, res) => {
-    try {
-        const quizSnapshot = await db.collection("quizzes").get();
-        const quizzes = quizSnapshot.docs.map(doc => doc.data());
+    const { deviceId, authCode } = req.query; // Get the deviceId and authCode from the query params
 
-        res.json(quizzes);
+    try {
+        // Fetch the payment document using deviceId
+        const paymentDoc = await db.collection("payments").doc(deviceId).get();
+
+        if (!paymentDoc.exists) {
+            return res.status(400).json({ success: false, message: "No payment record found." });
+        }
+
+        const paymentData = paymentDoc.data();
+
+        // Check if the authorization code is valid
+        if (paymentData.authorizationCode === authCode && paymentData.status === "success") {
+            // Authorized user - fetch full quiz
+            const quizSnapshot = await db.collection("quizzes").where("type", "==", "full").get();
+            const quizzes = quizSnapshot.docs.map(doc => doc.data());
+            return res.json(quizzes); // Send the full quizzes
+        } else {
+            // Unauthorized user - fetch partial quiz
+            const quizSnapshot = await db.collection("quizzes").where("type", "==", "partial").get();
+            const quizzes = quizSnapshot.docs.map(doc => doc.data());
+            return res.json(quizzes); // Send the partial quizzes
+        }
     } catch (error) {
         console.error("Error fetching quizzes:", error.message);
         res.status(500).json({ success: false, message: "Error fetching quizzes." });
     }
 });
-
-// Function to upload quiz questions to Firestore
-const uploadQuizzes = async () => {
-    const quizQuestions = [
-        // Partial quiz (3 questions)
-        {
-            question: "What is 2 + 2?",
-            options: ["1", "2", "3", "4"],
-            correctAnswer: "4",
-            type: "partial",
-        },
-        {
-            question: "What is the capital of France?",
-            options: ["Berlin", "Madrid", "Paris", "Rome"],
-            correctAnswer: "Paris",
-            type: "partial",
-        },
-        {
-            question: "Which planet is known as the Red Planet?",
-            options: ["Earth", "Mars", "Jupiter", "Venus"],
-            correctAnswer: "Mars",
-            type: "partial",
-        },
-        // Full quiz (10 questions)
-        {
-            question: "What is the boiling point of water at sea level?",
-            options: ["50°C", "100°C", "150°C", "200°C"],
-            correctAnswer: "100°C",
-            type: "full",
-        },
-        {
-            question: "What is the square root of 16?",
-            options: ["2", "4", "6", "8"],
-            correctAnswer: "4",
-            type: "full",
-        },
-        {
-            question: "Who wrote 'Hamlet'?",
-            options: ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"],
-            correctAnswer: "William Shakespeare",
-            type: "full",
-        },
-        {
-            question: "What is the chemical symbol for gold?",
-            options: ["Au", "Ag", "Pb", "Fe"],
-            correctAnswer: "Au",
-            type: "full",
-        },
-        {
-            question: "What is the largest mammal?",
-            options: ["Elephant", "Blue Whale", "Giraffe", "Rhino"],
-            correctAnswer: "Blue Whale",
-            type: "full",
-        },
-        {
-            question: "How many continents are there?",
-            options: ["5", "6", "7", "8"],
-            correctAnswer: "7",
-            type: "full",
-        },
-        {
-            question: "Which gas is essential for respiration?",
-            options: ["Nitrogen", "Carbon Dioxide", "Oxygen", "Hydrogen"],
-            correctAnswer: "Oxygen",
-            type: "full",
-        },
-        {
-            question: "What is the main ingredient in sushi?",
-            options: ["Bread", "Pasta", "Rice", "Noodles"],
-            correctAnswer: "Rice",
-            type: "full",
-        },
-        {
-            question: "What is the smallest prime number?",
-            options: ["0", "1", "2", "3"],
-            correctAnswer: "2",
-            type: "full",
-        },
-        {
-            question: "What is the capital of Nigeria?",
-            options: ["Lagos", "Abuja", "Kano", "Port Harcourt"],
-            correctAnswer: "Abuja",
-            type: "full",
-        },
-    ];
-
-    try {
-        const batch = db.batch();
-
-        quizQuestions.forEach((quiz, index) => {
-            const quizRef = db.collection("quizzes").doc(`quiz${index + 1}`);
-            batch.set(quizRef, quiz);
-        });
-
-        await batch.commit();
-        console.log("Quiz questions uploaded successfully!");
-    } catch (error) {
-        console.error("Error uploading quiz questions:", error);
-    }
-};
-
-// Call this function when the server starts
-uploadQuizzes();
 
 // Start Server
 const PORT = 3000;
