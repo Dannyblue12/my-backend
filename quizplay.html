@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #authError {
+            color: red;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        #quizContainer {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background: #218838;
+        }
+        #authMessage {
+            font-size: 16px;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="authError">Authentication failed. Please ensure you are authorized to access this page.</div>
+    <div id="quizContainer" style="display: none;">
+        <h2>Quiz</h2>
+        <div id="questionSection">
+            <div class="question" id="questionText">Loading question...</div>
+            <div class="options" id="optionsContainer"></div>
+        </div>
+        <button id="nextButton" style="margin-top: 20px; display: none;">Next Question</button>
+        <div id="authMessage"></div>
+    </div>
+
+    <script>
+        // API URL
+        const AUTH_API_URL = "https://my-backend-1yyb.onrender.com/validate-auth-code";
+
+        // Mock Data for Partial and Full Quiz
+        const partialQuizData = [
+            { question: "What is the capital of Nigeria?", options: ["Abuja", "Lagos", "Port Harcourt", "Kano"], answer: "Abuja" },
+            { question: "Who discovered gravity?", options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Charles Darwin"], answer: "Isaac Newton" },
+            { question: "What is the boiling point of water?", options: ["100°C", "212°F", "Both A and B", "None of the above"], answer: "Both A and B" }
+        ];
+
+        const fullQuizData = [
+            ...partialQuizData,
+            { question: "What is the square root of 64?", options: ["6", "8", "10", "12"], answer: "8" },
+            { question: "Which planet is known as the Red Planet?", options: ["Earth", "Venus", "Mars", "Jupiter"], answer: "Mars" },
+            { question: "Who wrote 'Hamlet'?", options: ["William Wordsworth", "Charles Dickens", "William Shakespeare", "John Keats"], answer: "William Shakespeare" },
+            { question: "What is the chemical symbol for water?", options: ["O2", "H2O", "CO2", "HO"], answer: "H2O" },
+            { question: "Which country is known as the Land of the Rising Sun?", options: ["China", "Korea", "Japan", "Thailand"], answer: "Japan" },
+            { question: "What is the largest ocean on Earth?", options: ["Atlantic", "Indian", "Pacific", "Arctic"], answer: "Pacific" },
+            { question: "Who painted the Mona Lisa?", options: ["Van Gogh", "Picasso", "Leonardo da Vinci", "Michelangelo"], answer: "Leonardo da Vinci" }
+        ];
+
+        // Track Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let isAuthorized = false;
+        let quizData = partialQuizData;
+
+        // DOM Elements
+        const authError = document.getElementById("authError");
+        const quizContainer = document.getElementById("quizContainer");
+        const questionText = document.getElementById("questionText");
+        const optionsContainer = document.getElementById("optionsContainer");
+        const nextButton = document.getElementById("nextButton");
+        const authMessage = document.getElementById("authMessage");
+
+        // Get Device ID and Auth Code
+        const deviceId = localStorage.getItem("deviceId");
+        const authCode = localStorage.getItem("authCode");
+
+        // Validate Authorization Code
+        async function validateAuthCode() {
+            try {
+                const response = await fetch(AUTH_API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ deviceId, authCode }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    isAuthorized = true;
+                    quizData = fullQuizData;
+                    authError.style.display = "none";
+                    authMessage.textContent = "You are authorized. Enjoy the complete quiz!";
+                } else {
+                    authError.textContent = "You are not authorized for the full quiz. Viewing the partial quiz.";
+                    authError.style.display = "block";
+                    authMessage.textContent = "Login to access the full quiz.";
+                }
+
+                quizContainer.style.display = "block";
+                loadQuestion();
+            } catch (error) {
+                console.error("Error validating authorization code:", error);
+                authError.textContent = "Network error. Please try again later.";
+                authError.style.display = "block";
+            }
+        }
+
+        // Load Quiz Question
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            optionsContainer.innerHTML = "";
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            nextButton.style.display = "none";
+        }
+
+        // Check User Answer
+        function checkAnswer(selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+                alert("Correct!");
+            } else {
+                alert(`Incorrect. The correct answer was "${currentQuestion.answer}".`);
+            }
+
+            nextButton.style.display = "block";
+        }
+
+        // Handle Next Question
+        nextButton.addEventListener("click", () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showQuizSummary();
+            }
+        });
+
+        // Show Quiz Summary
+        function showQuizSummary() {
+            questionText.textContent = `Quiz completed! Your score is ${score}/${quizData.length}.`;
+            optionsContainer.innerHTML = "";
+            nextButton.style.display = "none";
+        }
+
+        // On Page Load
+        document.addEventListener("DOMContentLoaded", validateAuthCode);
+    </script>
+</body>
+</html>
