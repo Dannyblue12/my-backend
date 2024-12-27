@@ -59,7 +59,7 @@ app.post("/confirm-payment", async (req, res) => {
         }
     } catch (error) {
         console.error("Error verifying payment:", error.message);
-        res.status(500).json({ success: false, message: "Error verifying payment." });
+        res.status(500).json({ success: false, message: `Error verifying payment: ${error.message}` });
     }
 });
 
@@ -83,7 +83,7 @@ app.post("/validate-auth-code", async (req, res) => {
         }
     } catch (error) {
         console.error("Error validating authorization code:", error.message);
-        res.status(500).json({ success: false, message: "Error validating authorization code." });
+        res.status(500).json({ success: false, message: `Error validating authorization code: ${error.message}` });
     }
 });
 
@@ -115,7 +115,7 @@ app.get("/quizzes", async (req, res) => {
         }
     } catch (error) {
         console.error("Error fetching quizzes:", error.message);
-        res.status(500).json({ success: false, message: "Error fetching quizzes." });
+        res.status(500).json({ success: false, message: `Error fetching quizzes: ${error.message}` });
     }
 });
 
