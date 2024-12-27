@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paystack Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f9;
+            margin: 0;
+        }
+        .payment-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Make Payment</h2>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <button id="payButton">Pay Now</button>
+    </div>
+
+    <script>
+        // Dynamically load Paystack script
+        function loadPaystackScript() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://js.paystack.co/v1/inline.js';
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // Generate Unique Device ID
+        const DEVICE_ID_KEY = "deviceId";
+        function getOrCreateDeviceId() {
+            let deviceId = localStorage.getItem(DEVICE_ID_KEY);
+            if (!deviceId) {
+                deviceId = `device-${Math.random().toString(36).substr(2, 9)}-${Date.now()}`;
+                localStorage.setItem(DEVICE_ID_KEY, deviceId);
+            }
+            return deviceId;
+        }
+        const deviceId = getOrCreateDeviceId();
+        console.log("Device ID:", deviceId);
+
+        // Wait for Paystack script to load before proceeding
+        loadPaystackScript()
+            .then(() => {
+                // Paystack Payment
+                const payButton = document.getElementById("payButton");
+                payButton.addEventListener("click", () => {
+                    const email = document.getElementById("email").value;
+                    if (!email) {
+                        alert("Please enter your email.");
+                        return;
+                    }
+
+                    const handler = PaystackPop.setup({
+                        key: 'pk_test_d88777a588c56d479473408bc22ba1f43cf4eda7', // Replace with your Paystack public key
+                        email: email,
+                        amount: 10000, // Amount in kobo (e.g., 5000 kobo = 50 Naira)
+                        currency: 'NGN',
+                        metadata: {
+                            deviceId: deviceId,
+                        },
+                        callback: function (response) {
+                            console.log("Payment reference:", response.reference);
+                            // Send payment data to backend for verification
+                            fetch("https://my-backend-1yyb.onrender.com/confirm-payment", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    reference: response.reference, // Paystack payment reference
+                                    email: email,
+                                    deviceId: deviceId,
+                                }),
+                            })
+                                .then((res) => res.json())
+                                .then((data) => {
+                                    if (data.success) {
+                                        alert(`Payment successful! Auth Code: ${data.authorizationCode}`);
+                                    } else {
+                                        alert(`Payment failed: ${data.message}`);
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error("Error:", error);
+                                    alert("An error occurred while verifying the payment.");
+                                });
+                        },
+                        onClose: function () {
+                            alert("Payment was not completed.");
+                        },
+                    });
+
+                    handler.openIframe();
+                });
+            })
+            .catch((error) => {
+                console.error("Error loading Paystack script:", error);
+                alert("Failed to load Paystack script. Please try again later.");
+            });
+    </script>
+</body>
+</html>
