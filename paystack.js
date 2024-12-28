@@ -14,15 +14,15 @@ const db = admin.firestore();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS for cross-origin requests
+app.use(cors());
 
 // Add a root route
 app.get("/", (req, res) => {
-    res.send("Welcome to the Paystack Payment Backend!");
+    res.send("Welcome to the Quiz App Backend!");
 });
 
 // Paystack Secret Key
-const PAYSTACK_SECRET = "sk_test_e9e204942a71944991c42534ede108fd6594ca45"; // Replace with your Paystack secret key
+const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY;
 
 // Confirm Payment Endpoint
 app.post("/confirm-payment", async (req, res) => {
@@ -59,7 +59,7 @@ app.post("/confirm-payment", async (req, res) => {
         }
     } catch (error) {
         console.error("Error verifying payment:", error.message);
-        res.status(500).json({ success: false, message: `Error verifying payment: ${error.message}` });
+        res.status(500).json({ success: false, message: "Error verifying payment." });
     }
 });
 
@@ -83,44 +83,44 @@ app.post("/validate-auth-code", async (req, res) => {
         }
     } catch (error) {
         console.error("Error validating authorization code:", error.message);
-        res.status(500).json({ success: false, message: `Error validating authorization code: ${error.message}` });
+        res.status(500).json({ success: false, message: "Error validating authorization code." });
     }
 });
 
-// Fetch quizzes (based on successful payment verification)
-app.get("/quizzes", async (req, res) => {
-    const { deviceId, authCode } = req.query; // Get the deviceId and authCode from the query params
-
+// Fetch Partial Quiz Endpoint
+app.get("/partial-quiz", async (req, res) => {
     try {
-        // Fetch the payment document using deviceId
-        const paymentDoc = await db.collection("payments").doc(deviceId).get();
-
-        if (!paymentDoc.exists) {
-            return res.status(400).json({ success: false, message: "No payment record found." });
-        }
-
-        const paymentData = paymentDoc.data();
-
-        // Check if the authorization code is valid and payment was successful
-        if (paymentData.authorizationCode === authCode && paymentData.status === "success") {
-            // Authorized user - fetch full quiz
-            const quizSnapshot = await db.collection("quizzes").where("type", "==", "full").get();
-            const quizzes = quizSnapshot.docs.map(doc => doc.data());
-            return res.json({ success: true, quizzes }); // Send the full quizzes
+        const quizSnapshot = await db.collection("quizzes").doc("partial").get();
+        if (quizSnapshot.exists) {
+            res.json({ success: true, quiz: quizSnapshot.data() });
         } else {
-            // Unauthorized user - fetch partial quiz
-            const quizSnapshot = await db.collection("quizzes").where("type", "==", "partial").get();
-            const quizzes = quizSnapshot.docs.map(doc => doc.data());
-            return res.json({ success: true, quizzes }); // Send the partial quizzes
+            res.status(404).json({ success: false, message: "Partial quiz not found." });
         }
     } catch (error) {
-        console.error("Error fetching quizzes:", error.message);
-        res.status(500).json({ success: false, message: `Error fetching quizzes: ${error.message}` });
+        console.error("Error fetching partial quiz:", error.message);
+        res.status(500).json({ success: false, message: "Error fetching partial quiz." });
+    }
+});
+
+// Fetch Complete Quiz Endpoint
+app.get("/complete-quiz", async (req, res) => {
+    try {
+        const quizSnapshot = await db.collection("quizzes").doc("complete").get();
+        if (quizSnapshot.exists) {
+            res.json({ success: true, quiz: quizSnapshot.data() });
+        } else {
+            res.status(404).json({ success: false, message: "Complete quiz not found." });
+        }
+    } catch (error) {
+        console.error("Error fetching complete quiz:", error.message);
+        res.status(500).json({ success: false, message: "Error fetching complete quiz." });
     }
 });
 
 // Start Server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+                
