@@ -87,33 +87,34 @@ app.post("/validate-auth-code", async (req, res) => {
     }
 });
 
-// Fetch Partial Quiz Endpoint
-app.get("/partial-quiz", async (req, res) => {
-    try {
-        const quizSnapshot = await db.collection("quizzes").doc("partial").get();
-        if (quizSnapshot.exists) {
-            res.json({ success: true, quiz: quizSnapshot.data() });
-        } else {
-            res.status(404).json({ success: false, message: "Partial quiz not found." });
-        }
-    } catch (error) {
-        console.error("Error fetching partial quiz:", error.message);
-        res.status(500).json({ success: false, message: "Error fetching partial quiz." });
-    }
-});
+// Fetch Quiz Endpoint
+app.get("/quiz", async (req, res) => {
+    const { subject, type } = req.query;
 
-// Fetch Complete Quiz Endpoint
-app.get("/complete-quiz", async (req, res) => {
+    if (!subject || !type) {
+        return res.status(400).json({ success: false, message: "Subject and type are required." });
+    }
+
     try {
-        const quizSnapshot = await db.collection("quizzes").doc("complete").get();
-        if (quizSnapshot.exists) {
-            res.json({ success: true, quiz: quizSnapshot.data() });
-        } else {
-            res.status(404).json({ success: false, message: "Complete quiz not found." });
+        const quizDoc = await db.collection("quizzes").doc(subject).get();
+        
+        if (!quizDoc.exists) {
+            return res.status(404).json({ success: false, message: "Quiz not found." });
         }
+
+        const quizData = quizDoc.data();
+        const questions = type === 'complete' ? quizData.completeQuestions : quizData.partialQuestions;
+
+        res.json({ 
+            success: true, 
+            quiz: {
+                subject,
+                questions
+            }
+        });
     } catch (error) {
-        console.error("Error fetching complete quiz:", error.message);
-        res.status(500).json({ success: false, message: "Error fetching complete quiz." });
+        console.error(`Error fetching ${type} quiz for ${subject}:`, error.message);
+        res.status(500).json({ success: false, message: `Error fetching ${type} quiz for ${subject}.` });
     }
 });
 
@@ -122,5 +123,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-
-                
