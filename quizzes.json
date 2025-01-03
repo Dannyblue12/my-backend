@@ -1,1 +1,138 @@
-
+{
+  "economics": {
+    "partialQuestions": [
+      {
+        "question": "What is the primary focus of Microeconomics?",
+        "options": ["National income", "Individual markets", "Government policies", "International trade"],
+        "answer": "B",
+        "explanation": "Microeconomics focuses on individual markets, consumer behavior, and business decisions."
+      },
+      {
+        "question": "Which of the following is an example of a normative economic statement?",
+        "options": [
+          "Inflation is currently at 5%.",
+          "The unemployment rate should be reduced.",
+          "The GDP grew by 3% last year.",
+          "The price of goods increased last quarter."
+        ],
+        "answer": "B",
+        "explanation": "Normative statements express opinions on what ought to be, unlike factual positive statements."
+      },
+      {
+        "question": "What does the term 'opportunity cost' mean?",
+        "options": [
+          "The cost of production",
+          "The value of the next best alternative foregone",
+          "The total cost of an investment",
+          "The price of goods in a market"
+        ],
+        "answer": "B",
+        "explanation": "Opportunity cost refers to the benefits lost when choosing one alternative over another."
+      },
+      {
+        "question": "What is the function of a production possibilities curve?",
+        "options": [
+          "To show economic growth",
+          "To illustrate scarcity and trade-offs",
+          "To determine consumer preferences",
+          "To measure inflation"
+        ],
+        "answer": "B",
+        "explanation": "The production possibilities curve demonstrates the trade-offs between two goods or services."
+      }
+    ],
+    "completeQuestions": [
+      {
+        "question": "What does GDP stand for?",
+        "options": ["Gross Domestic Product", "Global Domestic Product", "Gross Development Plan", "Global Development Plan"],
+        "answer": "A",
+        "explanation": "GDP stands for Gross Domestic Product, which measures the total value of goods and services produced in a country."
+      },
+      {
+        "question": "What is the term for an economy where goods and services are traded without the use of money?",
+        "options": ["Market economy", "Command economy", "Barter economy", "Mixed economy"],
+        "answer": "C",
+        "explanation": "A barter economy is one where goods and services are exchanged directly without the use of money."
+      },
+      {
+        "question": "Which type of unemployment is caused by changes in the seasons?",
+        "options": ["Structural unemployment", "Frictional unemployment", "Seasonal unemployment", "Cyclical unemployment"],
+        "answer": "C",
+        "explanation": "Seasonal unemployment occurs when workers are unemployed at certain times of the year due to changes in demand."
+      },
+      {
+        "question": "What is the law of demand?",
+        "options": [
+          "When demand increases, supply increases.",
+          "When prices rise, demand decreases.",
+          "When prices fall, supply increases.",
+          "When demand decreases, prices increase."
+        ],
+        "answer": "B",
+        "explanation": "The law of demand states that as prices rise, demand typically decreases, and vice versa."
+      },
+      {
+        "question": "What is inflation?",
+        "options": [
+          "A decrease in overall price levels",
+          "A sustained increase in overall price levels",
+          "An increase in the production of goods",
+          "A decrease in the value of exports"
+        ],
+        "answer": "B",
+        "explanation": "Inflation refers to a sustained increase in the general price level of goods and services over time."
+      },
+      {
+        "question": "What is a monopoly?",
+        "options": [
+          "A market with multiple sellers",
+          "A market controlled by one seller",
+          "A government-regulated market",
+          "A market with no buyers"
+        ],
+        "answer": "B",
+        "explanation": "A monopoly exists when a single seller controls the entire market for a product or service."
+      },
+      {
+        "question": "What is the economic term for the cost of borrowing money?",
+        "options": ["Interest", "Profit", "Revenue", "Debt"],
+        "answer": "A",
+        "explanation": "Interest is the cost paid for borrowing money or the return earned on savings."
+      },
+      {
+        "question": "What is the main function of central banks?",
+        "options": [
+          "To print money for private companies",
+          "To control a nation's currency and monetary policy",
+          "To provide loans to individuals",
+          "To regulate international trade"
+        ],
+        "answer": "B",
+        "explanation": "Central banks manage a country's monetary policy, currency supply, and interest rates."
+      },
+      {
+        "question": "What does 'elasticity' measure in economics?",
+        "options": [
+          "The strength of an economy",
+          "The responsiveness of demand or supply to changes in price",
+          "The speed of market growth",
+          "The level of government intervention"
+        ],
+        "answer": "B",
+        "explanation": "Elasticity measures how much demand or supply changes in response to a change in price."
+      },
+      {
+        "question": "What is fiscal policy?",
+        "options": [
+          "The use of government spending and taxation to influence the economy",
+          "The regulation of interest rates to control inflation",
+          "The control of money supply by the central bank",
+          "The reduction of tariffs to promote trade"
+        ],
+        "answer": "A",
+        "explanation": "Fiscal policy involves government spending and taxation decisions to influence economic activity."
+      },
+      
+    ]
+  }
+      }
