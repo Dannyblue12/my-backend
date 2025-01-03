@@ -18,8 +18,18 @@ async function uploadQuizzes() {
         const response = await axios.get(GITHUB_QUIZZES_URL);
         const quizzes = response.data;
 
+        if (typeof quizzes !== 'object' || Array.isArray(quizzes)) {
+            throw new Error('Invalid format: Quizzes must be an object with subject keys.');
+        }
+
         for (const [subject, quizData] of Object.entries(quizzes)) {
             console.log(`Uploading ${subject} quizzes to Firestore...`);
+            
+            if (typeof quizData !== 'object') {
+                console.error(`Skipped ${subject}: Quiz data must be an object.`);
+                continue;
+            }
+
             await db.collection('quizzes').doc(subject).set(quizData);
             console.log(`Successfully uploaded ${subject} quiz`);
         }
