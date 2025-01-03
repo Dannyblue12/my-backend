@@ -2,137 +2,172 @@
   "economics": {
     "partialQuestions": [
       {
-        "question": "What is the primary focus of Microeconomics?",
-        "options": ["National income", "Individual markets", "Government policies", "International trade"],
-        "answer": "B",
-        "explanation": "Microeconomics focuses on individual markets, consumer behavior, and business decisions."
+        "question": "What is the primary purpose of economics?",
+        "options": [
+          "To understand how resources are allocated",
+          "To learn about business management",
+          "To study consumer behavior",
+          "To analyze the history of trade"
+        ],
+        "answer": "A",
+        "explanation": "Economics primarily studies how scarce resources are allocated to meet the needs and wants of individuals and society."
       },
       {
-        "question": "Which of the following is an example of a normative economic statement?",
+        "question": "Which of the following is an example of a free good?",
         "options": [
-          "Inflation is currently at 5%.",
-          "The unemployment rate should be reduced.",
-          "The GDP grew by 3% last year.",
-          "The price of goods increased last quarter."
+          "Air",
+          "Water",
+          "Electricity",
+          "Food"
         ],
-        "answer": "B",
-        "explanation": "Normative statements express opinions on what ought to be, unlike factual positive statements."
+        "answer": "A",
+        "explanation": "A free good is available in abundance and does not have a cost, such as air."
       },
       {
-        "question": "What does the term 'opportunity cost' mean?",
+        "question": "The opportunity cost of a choice is defined as:",
         "options": [
-          "The cost of production",
-          "The value of the next best alternative foregone",
-          "The total cost of an investment",
-          "The price of goods in a market"
+          "The monetary cost of that choice",
+          "The benefit of the next best alternative forgone",
+          "The total cost of all alternatives",
+          "The cost of producing the good or service"
         ],
         "answer": "B",
-        "explanation": "Opportunity cost refers to the benefits lost when choosing one alternative over another."
+        "explanation": "Opportunity cost is the value of the next best alternative that is forgone when making a decision."
       },
       {
-        "question": "What is the function of a production possibilities curve?",
+        "question": "Which of the following is not a factor of production?",
         "options": [
-          "To show economic growth",
-          "To illustrate scarcity and trade-offs",
-          "To determine consumer preferences",
-          "To measure inflation"
+          "Land",
+          "Labor",
+          "Capital",
+          "Money"
         ],
-        "answer": "B",
-        "explanation": "The production possibilities curve demonstrates the trade-offs between two goods or services."
+        "answer": "D",
+        "explanation": "Money is not considered a factor of production. The factors of production are land, labor, capital, and entrepreneurship."
       }
     ],
     "completeQuestions": [
       {
-        "question": "What does GDP stand for?",
-        "options": ["Gross Domestic Product", "Global Domestic Product", "Gross Development Plan", "Global Development Plan"],
-        "answer": "A",
-        "explanation": "GDP stands for Gross Domestic Product, which measures the total value of goods and services produced in a country."
-      },
-      {
-        "question": "What is the term for an economy where goods and services are traded without the use of money?",
-        "options": ["Market economy", "Command economy", "Barter economy", "Mixed economy"],
+        "question": "What type of economy is characterized by private ownership of resources and decision-making based on the market?",
+        "options": [
+          "Command economy",
+          "Mixed economy",
+          "Market economy",
+          "Traditional economy"
+        ],
         "answer": "C",
-        "explanation": "A barter economy is one where goods and services are exchanged directly without the use of money."
+        "explanation": "In a market economy, resources are privately owned, and decisions are driven by market forces such as supply and demand."
       },
       {
-        "question": "Which type of unemployment is caused by changes in the seasons?",
-        "options": ["Structural unemployment", "Frictional unemployment", "Seasonal unemployment", "Cyclical unemployment"],
+        "question": "Which of the following is an example of a public good?",
+        "options": [
+          "A school",
+          "A park",
+          "A highway",
+          "National defense"
+        ],
+        "answer": "D",
+        "explanation": "Public goods are non-excludable and non-rivalrous, such as national defense."
+      },
+      {
+        "question": "What is the main objective of a firm under perfect competition?",
+        "options": [
+          "Profit maximization",
+          "Revenue maximization",
+          "Cost minimization",
+          "Market share increase"
+        ],
+        "answer": "A",
+        "explanation": "Under perfect competition, firms aim to maximize profit by equating marginal cost to marginal revenue."
+      },
+      {
+        "question": "If the price of a substitute good increases, what is likely to happen to the demand for the original good?",
+        "options": [
+          "It increases",
+          "It decreases",
+          "It remains constant",
+          "It becomes perfectly elastic"
+        ],
+        "answer": "A",
+        "explanation": "When the price of a substitute increases, consumers often switch to the original good, increasing its demand."
+      },
+      {
+        "question": "Which of the following best defines GDP?",
+        "options": [
+          "The total market value of all final goods and services produced within a country in a year",
+          "The total income of citizens in a country",
+          "The value of a country’s exports minus imports",
+          "The total investment in a country in a year"
+        ],
+        "answer": "A",
+        "explanation": "GDP is the total market value of all final goods and services produced within a country in a specific time period."
+      },
+      {
+        "question": "Which of the following policies would most likely reduce unemployment in the short run?",
+        "options": [
+          "Increasing taxes",
+          "Decreasing government spending",
+          "Implementing expansionary monetary policy",
+          "Raising interest rates"
+        ],
         "answer": "C",
-        "explanation": "Seasonal unemployment occurs when workers are unemployed at certain times of the year due to changes in demand."
+        "explanation": "Expansionary monetary policy, such as reducing interest rates, can stimulate economic activity and reduce unemployment."
       },
       {
-        "question": "What is the law of demand?",
+        "question": "In a monopoly, the firm is the:",
         "options": [
-          "When demand increases, supply increases.",
-          "When prices rise, demand decreases.",
-          "When prices fall, supply increases.",
-          "When demand decreases, prices increase."
+          "Only buyer in the market",
+          "Only seller in the market",
+          "Largest buyer in the market",
+          "Largest seller in the market"
         ],
         "answer": "B",
-        "explanation": "The law of demand states that as prices rise, demand typically decreases, and vice versa."
+        "explanation": "A monopoly exists when there is only one seller in the market, giving the firm significant control over prices."
       },
       {
-        "question": "What is inflation?",
+        "question": "Price elasticity of demand measures:",
         "options": [
-          "A decrease in overall price levels",
-          "A sustained increase in overall price levels",
-          "An increase in the production of goods",
-          "A decrease in the value of exports"
-        ],
-        "answer": "B",
-        "explanation": "Inflation refers to a sustained increase in the general price level of goods and services over time."
-      },
-      {
-        "question": "What is a monopoly?",
-        "options": [
-          "A market with multiple sellers",
-          "A market controlled by one seller",
-          "A government-regulated market",
-          "A market with no buyers"
-        ],
-        "answer": "B",
-        "explanation": "A monopoly exists when a single seller controls the entire market for a product or service."
-      },
-      {
-        "question": "What is the economic term for the cost of borrowing money?",
-        "options": ["Interest", "Profit", "Revenue", "Debt"],
-        "answer": "A",
-        "explanation": "Interest is the cost paid for borrowing money or the return earned on savings."
-      },
-      {
-        "question": "What is the main function of central banks?",
-        "options": [
-          "To print money for private companies",
-          "To control a nation's currency and monetary policy",
-          "To provide loans to individuals",
-          "To regulate international trade"
-        ],
-        "answer": "B",
-        "explanation": "Central banks manage a country's monetary policy, currency supply, and interest rates."
-      },
-      {
-        "question": "What does 'elasticity' measure in economics?",
-        "options": [
-          "The strength of an economy",
-          "The responsiveness of demand or supply to changes in price",
-          "The speed of market growth",
-          "The level of government intervention"
-        ],
-        "answer": "B",
-        "explanation": "Elasticity measures how much demand or supply changes in response to a change in price."
-      },
-      {
-        "question": "What is fiscal policy?",
-        "options": [
-          "The use of government spending and taxation to influence the economy",
-          "The regulation of interest rates to control inflation",
-          "The control of money supply by the central bank",
-          "The reduction of tariffs to promote trade"
+          "The responsiveness of demand to a change in price",
+          "The responsiveness of demand to a change in income",
+          "The responsiveness of demand to a change in production",
+          "The responsiveness of supply to a change in price"
         ],
         "answer": "A",
-        "explanation": "Fiscal policy involves government spending and taxation decisions to influence economic activity."
+        "explanation": "Price elasticity of demand measures how much the quantity demanded changes in response to a change in price."
       },
-      
+      {
+        "question": "Which of the following is an example of cyclical unemployment?",
+        "options": [
+          "Unemployment due to automation",
+          "Unemployment during a recession",
+          "Unemployment caused by seasonal factors",
+          "Unemployment caused by mismatch of skills"
+        ],
+        "answer": "B",
+        "explanation": "Cyclical unemployment occurs when economic activity slows down during a recession."
+      },
+      {
+        "question": "What is a price floor?",
+        "options": [
+          "A maximum legal price that can be charged",
+          "A minimum legal price that can be charged",
+          "The equilibrium price in a market",
+          "The lowest price at which a good can be sold"
+        ],
+        "answer": "B",
+        "explanation": "A price floor is a legally mandated minimum price, often set above the equilibrium price to protect producers."
+      },
+      {
+        "question": "What does the production possibility curve represent?",
+        "options": [
+          "The relationship between supply and demand",
+          "The maximum output combinations of two goods an economy can produce with given resources",
+          "The cost of producing one good in terms of another",
+          "The impact of government intervention on production"
+        ],
+        "answer": "B",
+        "explanation": "The production possibility curve shows the maximum combinations of two goods that can be produced with available resources and technology."
+      }
     ]
   }
       }
