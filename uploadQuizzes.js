@@ -1,50 +1,56 @@
-const admin = require('firebase-admin');
-const axios = require('axios');
+ const admin = require("firebase-admin"); const axios = require("axios");
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
-// Initialize Firebase Admin SDK
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
+// Initialize Firebase Admin SDK admin.initializeApp({ credential: admin.credential.cert(serviceAccount), });
 
 const db = admin.firestore();
-const GITHUB_QUIZZES_URL = 'https://raw.githubusercontent.com/Dannyblue12/my-backend/main/quizzes.json';
 
-// Function to fetch quizzes from GitHub and upload to Firestore
-async function uploadQuizzes() {
-    try {
-        console.log('Fetching quizzes from GitHub...');
-        const response = await axios.get(GITHUB_QUIZZES_URL);
-        const quizzes = response.data;
+// GitHub Repository Details const GITHUB_OWNER = "Dannyblue12"; const GITHUB_REPO = "my-backend"; const GITHUB_BRANCH = "main"; // Or your branch name const DIRECTORY = "quizfile"; // Folder containing quiz files const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // Personal access token for GitHub API
 
-        if (typeof quizzes !== 'object' || Array.isArray(quizzes)) {
-            throw new Error('Invalid format: Quizzes must be an object with subject keys.');
-        }
+// Function to fetch file list from GitHub async function fetchFileList() { const apiUrl = https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DIRECTORY}?ref=${GITHUB_BRANCH};
 
-        for (const [subject, quizData] of Object.entries(quizzes)) {
-            console.log(`Uploading ${subject} quizzes to Firestore...`);
-            
-            if (typeof quizData !== 'object') {
-                console.error(`Skipped ${subject}: Quiz data must be an object.`);
-                continue;
-            }
+try {
+    const response = await axios.get(apiUrl, {
+        headers: {
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
+        },
+    });
 
-            await db.collection('quizzes').doc(subject).set(quizData);
-            console.log(`Successfully uploaded ${subject} quiz`);
-        }
-
-        console.log('All quizzes uploaded successfully.');
-    } catch (error) {
-        console.error('Error uploading quizzes:', error.message);
-    }
+    // Return only .json files
+    return response.data.filter((file) => file.name.endsWith(".json"));
+} catch (error) {
+    console.error("Error fetching file list from GitHub:", error.message);
+    throw error;
 }
 
-// Run the upload
-uploadQuizzes().then(() => {
-    console.log('Quizzes upload completed.');
-    process.exit(0); // Exit the script
-}).catch((error) => {
-    console.error('Error in quiz upload:', error.message);
-    process.exit(1); // Exit with error
-});
+}
+
+// Function to fetch and upload quizzes from a file async function uploadQuizFile(fileUrl) { try { console.log(Fetching quizzes from ${fileUrl}...); const response = await axios.get(fileUrl); const quizzes = response.data;
+
+for (const [subject, quizData] of Object.entries(quizzes)) {
+        console.log(`Uploading ${subject} quiz to Firestore...`);
+        await db.collection("quizzes").doc(subject).set(quizData);
+        console.log(`Successfully uploaded ${subject} quiz`);
+    }
+} catch (error) {
+    console.error(`Error uploading quizzes from ${fileUrl}:`, error.message);
+}
+
+}
+
+// Function to process all files in the directory async function uploadAllQuizzes() { try { const files = await fetchFileList();
+
+for (const file of files) {
+        await uploadQuizFile(file.download_url);
+    }
+
+    console.log("All quizzes uploaded successfully.");
+} catch (error) {
+    console.error("Error uploading quizzes:", error.message);
+}
+
+}
+
+// Run the upload process uploadAllQuizzes() .then(() => { console.log("Quiz upload completed."); process.exit(0); // Exit the script }) .catch((error) => { console.error("Error during quiz upload process:", error.message); process.exit(1); // Exit with error });
+
