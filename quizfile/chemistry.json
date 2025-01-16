@@ -1,0 +1,162 @@
+{
+  "chemistry": {
+    "partialQuestions": [
+      {
+        "question": "What is the atomic number of an element?",
+        "options": [
+          "The number of neutrons in an atom",
+          "The number of protons in an atom",
+          "The number of electrons in an atom",
+          "The mass number of an atom"
+        ],
+        "answer": "B",
+        "explanation": "The atomic number is the number of protons in the nucleus of an atom, which defines the element."
+      },
+      {
+        "question": "Which subatomic particle is negatively charged?",
+        "options": [
+          "Proton",
+          "Neutron",
+          "Electron",
+          "Nucleus"
+        ],
+        "answer": "C",
+        "explanation": "The electron is a subatomic particle with a negative charge that orbits the nucleus of an atom."
+      },
+      {
+        "question": "What is the chemical formula for water?",
+        "options": [
+          "H2O",
+          "O2",
+          "CO2",
+          "NaCl"
+        ],
+        "answer": "A",
+        "explanation": "Water consists of two hydrogen atoms bonded to one oxygen atom, giving it the formula H2O."
+      },
+      {
+        "question": "Which of the following is a noble gas?",
+        "options": [
+          "Oxygen",
+          "Nitrogen",
+          "Helium",
+          "Chlorine"
+        ],
+        "answer": "C",
+        "explanation": "Helium is a noble gas, characterized by its full valence electron shell and lack of chemical reactivity."
+      }
+    ],
+    "completeQuestions": [
+      {
+        "question": "What is the primary characteristic of a covalent bond?",
+        "options": [
+          "Transfer of electrons between atoms",
+          "Sharing of electrons between atoms",
+          "Electrostatic attraction between ions",
+          "Formation of metallic bonds"
+        ],
+        "answer": "B",
+        "explanation": "Covalent bonds involve the sharing of electron pairs between atoms to achieve stability."
+      },
+      {
+        "question": "Which of the following elements is an alkali metal?",
+        "options": [
+          "Sodium",
+          "Calcium",
+          "Iron",
+          "Argon"
+        ],
+        "answer": "A",
+        "explanation": "Sodium is an alkali metal, belonging to Group 1 of the periodic table and highly reactive with water."
+      },
+      {
+        "question": "What is the pH of a neutral solution?",
+        "options": [
+          "0",
+          "7",
+          "14",
+          "10"
+        ],
+        "answer": "B",
+        "explanation": "A neutral solution has a pH of 7, which indicates equal concentrations of hydrogen and hydroxide ions."
+      },
+      {
+        "question": "What type of reaction is represented by the equation 2H2 + O2 → 2H2O?",
+        "options": [
+          "Decomposition",
+          "Combustion",
+          "Synthesis",
+          "Displacement"
+        ],
+        "answer": "C",
+        "explanation": "This is a synthesis reaction, where two or more reactants combine to form a single product."
+      },
+      {
+        "question": "Which of the following is an example of an endothermic reaction?",
+        "options": [
+          "Combustion of wood",
+          "Dissolution of salt in water",
+          "Photosynthesis in plants",
+          "Freezing of water"
+        ],
+        "answer": "C",
+        "explanation": "Photosynthesis is an endothermic reaction, as it absorbs energy in the form of sunlight to convert carbon dioxide and water into glucose."
+      },
+      {
+        "question": "What is the molar mass of carbon dioxide (CO2)?",
+        "options": [
+          "28 g/mol",
+          "32 g/mol",
+          "44 g/mol",
+          "40 g/mol"
+        ],
+        "answer": "C",
+        "explanation": "The molar mass of CO2 is calculated by adding the atomic masses of one carbon atom (12 g/mol) and two oxygen atoms (16 g/mol each), resulting in 44 g/mol."
+      },
+      {
+        "question": "What is the main characteristic of a strong acid?",
+        "options": [
+          "Low pH and partial ionization",
+          "High pH and complete ionization",
+          "Low pH and complete ionization",
+          "High pH and partial ionization"
+        ],
+        "answer": "C",
+        "explanation": "A strong acid has a low pH and completely ionizes in water, releasing all its hydrogen ions."
+      },
+      {
+        "question": "Which of the following is a property of metals?",
+        "options": [
+          "Brittle",
+          "Poor conductor of heat",
+          "Malleable",
+          "Low melting point"
+        ],
+        "answer": "C",
+        "explanation": "Metals are malleable, meaning they can be hammered into thin sheets without breaking, and they are good conductors of heat and electricity."
+      },
+      {
+        "question": "What does the term 'isotope' refer to?",
+        "options": [
+          "Atoms of the same element with different numbers of electrons",
+          "Atoms of the same element with different numbers of protons",
+          "Atoms of the same element with different numbers of neutrons",
+          "Atoms of different elements with the same atomic number"
+        ],
+        "answer": "C",
+        "explanation": "Isotopes are atoms of the same element that have the same number of protons but different numbers of neutrons, giving them different atomic masses."
+      },
+      {
+        "question": "What is the common name of sodium chloride?",
+        "options": [
+          "Table salt",
+          "Baking soda",
+          "Epsom salt",
+          "Bleach"
+        ],
+        "answer": "A",
+        "explanation": "Sodium chloride (NaCl) is commonly known as table salt, widely used in cooking and food preservation."
+      }
+    ]
+  }
+      }
