@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const axios = require("axios");
 const cors = require("cors");
+const NodeCache = require("node-cache");
 
 // Initialize Firebase Admin SDK
 const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
@@ -11,6 +12,8 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const authCache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -66,21 +69,34 @@ app.post("/confirm-payment", async (req, res) => {
 // Validate Authorization Code Endpoint
 app.post("/validate-auth-code", async (req, res) => {
     const { deviceId, authCode } = req.body;
+    const cacheKey = `${deviceId}:${authCode}`;
+
+    // Check cache first
+    const cachedResult = authCache.get(cacheKey);
+    if (cachedResult !== undefined) {
+        return res.json(cachedResult);
+    }
 
     try {
         const paymentDoc = await db.collection("payments").doc(deviceId).get();
 
+        let result;
         if (paymentDoc.exists) {
             const paymentData = paymentDoc.data();
-
-            if (paymentData.authorizationCode === authCode) {
-                res.json({ success: true, message: "Authorization code is valid." });
-            } else {
-                res.json({ success: false, message: "Invalid authorization code." });
-            }
+            result = {
+                success: paymentData.authorizationCode === authCode,
+                message: paymentData.authorizationCode === authCode
+                    ? "Authorization code is valid."
+                    : "Invalid authorization code.",
+            };
         } else {
-            res.json({ success: false, message: "No payment record found for this device." });
+            result = { success: false, message: "No payment record found for this device." };
         }
+
+        // Cache the result
+        authCache.set(cacheKey, result);
+
+        res.json(result);
     } catch (error) {
         console.error("Error validating authorization code:", error.message);
         res.status(500).json({ success: false, message: "Error validating authorization code." });
@@ -123,3 +139,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+            
