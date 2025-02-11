@@ -1,108 +1,40 @@
-const admin = require("firebase-admin")
-const axios = require("axios")
-require("dotenv").config()
+const admin = require('firebase-admin');
+const axios = require('axios');
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_KEY)
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
+// Initialize Firebase Admin SDK
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-})
+    credential: admin.credential.cert(serviceAccount),
+});
 
-const db = admin.firestore()
+const db = admin.firestore();
+const GITHUB_QUIZZES_URL = 'https://raw.githubusercontent.com/Dannyblue12/my-backend/main/Bio101.json';
 
-const GITHUB_OWNER = "Dannyblue12"
-const GITHUB_REPO = "my-backend"
-const GITHUB_BRANCH = "main"
-const DIRECTORY = "quizfile"
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+// Function to fetch quizzes from GitHub and upload to Firestore
+async function uploadQuizzes() {
+    try {
+        console.log('Fetching quizzes from GitHub...');
+        const response = await axios.get(GITHUB_QUIZZES_URL);
+        const quizzes = response.data;
 
-async function fetchFileList() {
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DIRECTORY}?ref=${GITHUB_BRANCH}`
+        for (const [subject, quizData] of Object.entries(quizzes)) {
+            console.log(`Uploading ${subject} quizzes to Firestore...`);
+            await db.collection('quizzes').doc(subject).set(quizData);
+            console.log(`Successfully uploaded ${subject} quiz`);
+        }
 
-  try {
-    const response = await axios.get(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
-        Accept: "application/vnd.github.v3+json",
-      },
-    })
-
-    return response.data.filter((file) => file.name.endsWith(".json"))
-  } catch (error) {
-    console.error("Error fetching file list from GitHub:", error.message)
-    if (error.response) {
-      console.error("Response status:", error.response.status)
-      console.error("Response data:", error.response.data)
+        console.log('All quizzes uploaded successfully.');
+    } catch (error) {
+        console.error('Error uploading quizzes:', error.message);
     }
-    throw error
-  }
 }
 
-async function uploadQuizFile(fileUrl) {
-  try {
-    console.log(`Fetching quizzes from ${fileUrl}...`)
-    const response = await axios.get(fileUrl, {
-      headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
-        Accept: "application/vnd.github.v3.raw",
-      },
-    })
-    const quizzes = response.data
-
-    for (const [subject, quizData] of Object.entries(quizzes)) {
-      console.log(`Validating ${subject} quiz data...`)
-      if (!validateQuizData(quizData)) {
-        console.error(`Invalid quiz data for ${subject}. Skipping...`)
-        continue
-      }
-
-      console.log(`Uploading ${subject} quiz to Firestore...`)
-      await db.collection("quizzes").doc(subject).set(quizData)
-      console.log(`Successfully uploaded ${subject} quiz`)
-    }
-  } catch (error) {
-    console.error(`Error uploading quizzes from ${fileUrl}:`, error.message)
-    if (error.response) {
-      console.error("Response status:", error.response.status)
-      console.error("Response data:", error.response.data)
-    }
-  }
-}
-
-function validateQuizData(quizData) {
-  if (!quizData.partialQuestions || !quizData.completeQuestions) {
-    return false
-  }
-
-  const validateQuestions = (questions) => {
-    return questions.every((q) => q.Q && q.A && q.B && q.C && q.D && q.Ans && q.explanation)
-  }
-
-  return validateQuestions(quizData.partialQuestions) && validateQuestions(quizData.completeQuestions)
-}
-
-async function uploadAllQuizzes() {
-  try {
-    const files = await fetchFileList()
-
-    for (const file of files) {
-      await uploadQuizFile(file.download_url)
-    }
-
-    console.log("All quizzes uploaded successfully.")
-  } catch (error) {
-    console.error("Error uploading quizzes:", error.message)
-  }
-}
-
-uploadAllQuizzes()
-  .then(() => {
-    console.log("Quiz upload completed.")
-    process.exit(0)
-  })
-  .catch((error) => {
-    console.error("Error during quiz upload process:", error.message)
-    process.exit(1)
-  })
-
-          
+// Run the upload
+uploadQuizzes().then(() => {
+    console.log('Quizzes upload completed.');
+    process.exit(0); // Exit the script
+}).catch((error) => {
+    console.error('Error in quiz upload:', error.message);
+    process.exit(1); // Exit with error
+});
