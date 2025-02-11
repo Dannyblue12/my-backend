@@ -9,7 +9,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-const GITHUB_QUIZZES_URL = 'https://raw.githubusercontent.com/Dannyblue12/my-backend/main/Bio101.json';
+const GITHUB_QUIZZES_URL = 'https://raw.githubusercontent.com/Dannyblue12/my-backend/main/quizfile/Bio101.json';
 
 // Function to fetch quizzes from GitHub and upload to Firestore
 async function uploadQuizzes() {
