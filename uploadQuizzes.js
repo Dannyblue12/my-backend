@@ -1,5 +1,5 @@
 const admin = require("firebase-admin")
-const axios = require("axios")
+const fs = require("fs")
 require("dotenv").config()
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_KEY)
@@ -10,48 +10,15 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-const GITHUB_OWNER = "Dannyblue12"
-const GITHUB_REPO = "my-backend"
-const GITHUB_BRANCH = "main"
-const DIRECTORY = "quizfile/Bio101.json"
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
-
-async function fetchFileList() {
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DIRECTORY}?ref=${GITHUB_BRANCH}`
-
+async function uploadQuizFile(filePath) {
   try {
-    const response = await axios.get(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
-        Accept: "application/vnd.github.v3+json",
-      },
-    })
+    console.log(`Reading quiz data from ${filePath}...`)
+    const fileContent = fs.readFileSync(filePath, "utf8")
+    const quizData = JSON.parse(fileContent)
 
-    return response.data.filter((file) => file.name.endsWith(".json"))
-  } catch (error) {
-    console.error("Error fetching file list from GitHub:", error.message)
-    if (error.response) {
-      console.error("Response status:", error.response.status)
-      console.error("Response data:", error.response.data)
-    }
-    throw error
-  }
-}
-
-async function uploadQuizFile(fileUrl) {
-  try {
-    console.log(`Fetching quizzes from ${fileUrl}...`)
-    const response = await axios.get(fileUrl, {
-      headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
-        Accept: "application/vnd.github.v3.raw",
-      },
-    })
-    const quizzes = response.data
-
-    for (const [subject, quizData] of Object.entries(quizzes)) {
+    for (const [subject, subjectData] of Object.entries(quizData)) {
       console.log(`Validating ${subject} quiz data...`)
-      if (!validateQuizData(quizData)) {
+      if (!validateQuizData(subjectData)) {
         console.error(`Invalid quiz data for ${subject}. Skipping...`)
         continue
       }
@@ -59,7 +26,7 @@ async function uploadQuizFile(fileUrl) {
       console.log(`Uploading ${subject} quiz to Firestore...`)
 
       // Ensure the data is a plain JavaScript object
-      const plainObject = JSON.parse(JSON.stringify(quizData))
+      const plainObject = JSON.parse(JSON.stringify(subjectData))
 
       // Log the structure of the data being sent to Firestore
       console.log(`Data structure for ${subject}:`, JSON.stringify(plainObject, null, 2))
@@ -69,11 +36,7 @@ async function uploadQuizFile(fileUrl) {
       console.log(`Successfully uploaded ${subject} quiz`)
     }
   } catch (error) {
-    console.error(`Error uploading quizzes from ${fileUrl}:`, error.message)
-    if (error.response) {
-      console.error("Response status:", error.response.status)
-      console.error("Response data:", error.response.data)
-    }
+    console.error(`Error uploading quiz from ${filePath}:`, error.message)
     throw error
   }
 }
@@ -90,29 +53,23 @@ function validateQuizData(quizData) {
   return validateQuestions(quizData.partialQuestions) && validateQuestions(quizData.completeQuestions)
 }
 
-async function uploadAllQuizzes() {
+async function uploadQuiz() {
+  const filePath = process.argv[2]
+  if (!filePath) {
+    console.error("Please provide the path to the JSON file as an argument.")
+    process.exit(1)
+  }
+
   try {
-    const files = await fetchFileList()
-
-    for (const file of files) {
-      await uploadQuizFile(file.download_url)
-    }
-
-    console.log("All quizzes uploaded successfully.")
+    await uploadQuizFile(filePath)
+    console.log("Quiz upload completed.")
+    process.exit(0)
   } catch (error) {
-    console.error("Error uploading quizzes:", error.message)
-    throw error
+    console.error("Error during quiz upload process:", error.message)
+    process.exit(1)
   }
 }
 
-uploadAllQuizzes()
-  .then(() => {
-    console.log("Quiz upload completed.")
-    process.exit(0)
-  })
-  .catch((error) => {
-    console.error("Error during quiz upload process:", error.message)
-    process.exit(1)
-  })
+uploadQuiz()
 
-      
+        
