@@ -1,6 +1,6 @@
 {
-  biology101: {
-    partialQuestions: [
+  "biology101": {
+    "partialQuestions": [
       {
         Q: "All these are characteristics of living things except",
         A: "Movement",
@@ -32,7 +32,7 @@
           "Pathology is the study of diseases and how they affect the body. It deals with the causes, processes, development, and consequences of diseases.",
       },
     ],
-    completeQuestions: [
+    "completeQuestions": [
       {
         Q: "___ is the biology that determines how drugs and natural substances interact with the body",
         A: "Pharmacology",
@@ -133,7 +133,321 @@
         explanation:
           "Sexual reproduction involves the fusion of male and female gametes (sex cells) to form a zygote. This process combines genetic material from two parents, leading to genetic diversity in offspring.",
       },
-    ],
-  },
-}
-
+      {
+        Q: "The population is made up of a group of individuals known as",
+        A: "organisms",
+        B: "species",
+        C: "ecosystems",
+        D: "communities",
+        Ans: "organisms",
+        explanation:
+          "A population consists of a group of organisms of the same species living in a particular area at a specific time.",
+      },
+      {
+        Q: "A biosphere is divided into smaller regions known as",
+        A: "ecosystems",
+        B: "populations",
+        C: "communities",
+        D: "species",
+        Ans: "ecosystems",
+        explanation:
+          "The biosphere is divided into ecosystems, which are functional units consisting of living organisms interacting with each other and their non-living environment.",
+      },
+      {
+        Q: "Climates fit into several groups known as",
+        A: "biomes",
+        B: "ecosystems",
+        C: "communities",
+        D: "populations",
+        Ans: "biomes",
+        explanation:
+          "Biomes are large-scale ecosystems characterized by similar climate, flora, and fauna. They represent distinct climate and vegetation types.",
+      },
+      {
+        Q: "Different communities define what specific traits must be available to allow an organism to mate and pass along the choice gene to the next generation which is the concept of ___ idea.",
+        A: "Darwin's",
+        B: "Lamarck's",
+        C: "Mendel's",
+        D: "Wallace's",
+        Ans: "Darwin's",
+        explanation:
+          "This concept refers to Darwin's theory of natural selection, where organisms with favorable traits are more likely to survive and reproduce, passing these traits to future generations.",
+      },
+      {
+        Q: "___ is the smallest and most fundamental unit of matter.",
+        A: "atom",
+        B: "molecule",
+        C: "cell",
+        D: "nucleus",
+        Ans: "atom",
+        explanation:
+          "An atom is the smallest unit of matter that retains the properties of an element. It is the fundamental building block of all matter.",
+      },
+      {
+        Q: "A ___ is a chemical structure consisting of at least two atoms held together by one or more chemical bonds.",
+        A: "molecule",
+        B: "compound",
+        C: "element",
+        D: "cell",
+        Ans: "molecule",
+        explanation:
+          "A molecule is the smallest unit of a chemical compound that can take part in a chemical reaction. It consists of two or more atoms bonded together.",
+      },
+      {
+        Q: "An example of macromolecule is ____",
+        A: "deoxyribonucleic acid(DNA)",
+        B: "water",
+        C: "carbon dioxide",
+        D: "glucose",
+        Ans: "deoxyribonucleic acid(DNA)",
+        explanation:
+          "DNA is a large, complex molecule that carries genetic information. It is an example of a macromolecule, which are very large molecules typically formed by polymerization of smaller subunits.",
+      },
+      {
+        Q: "Some cells contain aggregates of macromolecules surrounded by membranes; these are called ____.",
+        A: "organelles",
+        B: "tissues",
+        C: "organs",
+        D: "molecules",
+        Ans: "organelles",
+        explanation:
+          "Organelles are specialized structures within cells that perform specific functions. They are often enclosed by membranes and contain various macromolecules.",
+      },
+      {
+        Q: "___ are single-celled or colonial organisms that do not have membrane-bound nuclei or organelles",
+        A: "Prokaryotes",
+        B: "Eukaryotes",
+        C: "Plants",
+        D: "Animals",
+        Ans: "Prokaryotes",
+        explanation:
+          "Prokaryotes are simple, single-celled organisms that lack a membrane-bound nucleus and other membrane-enclosed organelles. Bacteria and Archaea are examples of prokaryotes.",
+      },
+      {
+        Q: "___ do have membrane-bound organelles and a membrane-bound nucleus",
+        A: "eukaryotes",
+        B: "prokaryotes",
+        C: "viruses",
+        D: "bacteria",
+        Ans: "eukaryotes",
+        explanation:
+          "Eukaryotes are organisms whose cells contain a nucleus and other organelles enclosed within membranes. This includes all plants, animals, fungi, and protists.",
+      },
+      {
+        Q: "In larger organisms, cells combine to make ___",
+        A: "tissues",
+        B: "organs",
+        C: "systems",
+        D: "molecules",
+        Ans: "tissues",
+        explanation:
+          "Tissues are groups of similar cells that work together to perform a specific function. They are the next level of organization above cells in multicellular organisms.",
+      },
+      {
+        Q: "___ are collections of tissues grouped together performing a common function.",
+        A: "Organs",
+        B: "Cells",
+        C: "Systems",
+        D: "Organelles",
+        Ans: "Organs",
+        explanation:
+          "Organs are structures composed of two or more different types of tissues that work together to perform specific functions within an organism.",
+      },
+      {
+        Q: "An ___ consists of all the living things in a particular area together with the abiotic, non-living parts of that environment",
+        A: "ecosystem",
+        B: "organism",
+        C: "population",
+        D: "community",
+        Ans: "ecosystem",
+        explanation:
+          "An ecosystem includes all living organisms in an area, along with the non-living components of their environment, interacting as a system.",
+      },
+      {
+        Q: "___ is the collection of all ecosystems",
+        A: "biosphere",
+        B: "community",
+        C: "population",
+        D: "organism",
+        Ans: "biosphere",
+        explanation:
+          "The biosphere is the global sum of all ecosystems, integrating all living beings and their relationships, including their interaction with the elements of the lithosphere, hydrosphere, and atmosphere.",
+      },
+      {
+        Q: "The fundamental molecular components of all organisms are carbohydrates, nucleic acids, proteins and ___",
+        A: "lipids",
+        B: "minerals",
+        C: "vitamins",
+        D: "water",
+        Ans: "lipids",
+        explanation:
+          "Lipids, along with carbohydrates, nucleic acids, and proteins, are the four major classes of biological macromolecules that are essential for all known forms of life.",
+      },
+      {
+        Q: "___ produce energy to power the cell while ___ enable green plants to utilize the energy in sunlight to make sugars.",
+        A: "mitochondria, chloroplasts",
+        B: "nucleus, ribosomes",
+        C: "golgi apparatus, lysosomes",
+        D: "cytoplasm, vacuoles",
+        Ans: "mitochondria, chloroplasts",
+        explanation:
+          "Mitochondria are known as the powerhouses of the cell, producing energy through cellular respiration. Chloroplasts are found in plant cells and are responsible for photosynthesis, converting light energy into chemical energy.",
+      },
+      {
+        Q: "Human beings belong to the species known as",
+        A: "Homo sapien",
+        B: "Homo erectus",
+        C: "Homo habilis",
+        D: "Homo neanderthalensis",
+        Ans: "Homo sapien",
+        explanation:
+          "Homo sapiens is the scientific name for the human species. It is the only extant human species and is characterized by a highly developed brain and bipedal locomotion.",
+      },
+      {
+        Q: "___ refers to the form and structures of organisms.",
+        A: "Phenotype",
+        B: "Genotype",
+        C: "Physiology",
+        D: "Morphology",
+        Ans: "Morphology",
+        explanation:
+          "Morphology is the study of the form and structure of organisms. It includes aspects of the outward appearance (shape, structure, color, pattern) as well as the form and structure of the internal parts.",
+      },
+      {
+        Q: "The study of how disease and individual characteristics are affected by hereditary and demonstrate the point is known as",
+        A: "Histology",
+        B: "Embryology",
+        C: "Epidemiology",
+        D: "Genetics",
+        Ans: "Genetics",
+        explanation:
+          "Genetics is the study of heredity and the variation of inherited characteristics. It examines how traits are passed from parents to offspring and how these traits express themselves.",
+      },
+      {
+        Q: "___ involves organizing and categorizing the diversity of life based on shared characteristics and evolutionary relationships.",
+        A: "Embryology",
+        B: "Ecology",
+        C: "Physiology",
+        D: "Taxonomy",
+        Ans: "Taxonomy",
+        explanation:
+          "Taxonomy is the science of naming, describing, and classifying organisms into groups based on shared characteristics. It provides a standardized system for categorizing the diversity of life.",
+      },
+      {
+        Q: "The Linnaean system was developed by Carl Linnaeus in the",
+        A: "17th century",
+        B: "16th century",
+        C: "19th century",
+        D: "18th century",
+        Ans: "18th century",
+        explanation:
+          "Carl Linnaeus, often called the Father of Taxonomy, developed his system of binomial nomenclature in the 18th century. This system is still the basis for modern biological classification.",
+      },
+      {
+        Q: "Who is regarded as one of the early founders of taxonomy",
+        A: "Jean-Baptiste Lamarck",
+        B: "Gregor Mendel",
+        C: "John Ray (1627-1705)",
+        D: "Thomas Hunt Morgan",
+        Ans: "John Ray (1627-1705)",
+        explanation:
+          "John Ray, an English naturalist, is considered one of the founders of modern taxonomy. He published important works on plants, animals, and natural theology, and his approach to classification was an important precursor to Linnaeus' system.",
+      },
+      {
+        Q: "___, a Swedish botanist and physician is referred to as the 'Father of Taxonomy'.",
+        A: "Andrea Cesalpino",
+        B: "Joseph Pitton de Tournefort",
+        C: "Carl Linnaeus (1707 -1778)",
+        D: "Adolf Engler",
+        Ans: "Carl Linnaeus (1707 -1778)",
+        explanation:
+          "Carl Linnaeus, also known as Carl von Linné, is widely regarded as the Father of Taxonomy. He formalized the modern system of naming organisms, known as binomial nomenclature.",
+      },
+      {
+        Q: "Who emphasized the importance of fossil studies and introduced the concept of catastrophism",
+        A: "James Hutton",
+        B: "William Smith",
+        C: "Georges Cuvier(1769-1832)",
+        D: "Charles Lyell",
+        Ans: "Georges Cuvier(1769-1832)",
+        explanation:
+          "Georges Cuvier, a French naturalist and zoologist, was a major figure in natural sciences research in the early 19th century. He is known for establishing the fields of paleontology and comparative anatomy.",
+      },
+      {
+        Q: "Whose work on the 'Origin of Species' in 1859 emphasized the importance of common ancestry",
+        A: "Alfred Russel Wallace",
+        B: "Gregor Mendel",
+        C: "Charles Darwin",
+        D: "Jean-Baptiste Lamarck",
+        Ans: "Charles Darwin",
+        explanation:
+          "Charles Darwin's seminal work 'On the Origin of Species' published in 1859 introduced the scientific theory that populations evolve over generations through natural selection.",
+      },
+      {
+        Q: "Which German biologist coined the terms 'phylogeny' and 'ecology'.",
+        A: "August Weismann",
+        B: "Ernst Haeckel",
+        C: "Rudolf Virchow",
+        D: "Hugo de Vries",
+        Ans: "Ernst Haeckel",
+        explanation:
+          "Ernst Haeckel, a German zoologist, naturalist, and artist, is credited with coining many biological terms including 'phylogeny' and 'ecology'. He was a proponent of Darwinism in Germany.",
+      },
+      {
+        Q: "The three primary domains are the following except",
+        A: "Animalia",
+        B: "Bacteria",
+        C: "Archaea",
+        D: "Eukarya",
+        Ans: "Animalia",
+        explanation:
+          "The three-domain system, introduced by Carl Woese, divides cellular life forms into Archaea, Bacteria, and Eukarya. Animalia is a kingdom within the domain Eukarya.",
+      },
+      {
+        Q: "The second-highest level of standard hierarchy is",
+        A: "Phylum",
+        B: "Class",
+        C: "Order",
+        D: "Kingdom",
+        Ans: "Kingdom",
+        explanation:
+          "In the standard taxonomic hierarchy, Kingdom is the second-highest level, below Domain and above Phylum.",
+      },
+      {
+        Q: "A group of related species that share common characteristics is",
+        A: "Family",
+        B: "Genus",
+        C: "Order",
+        D: "Class",
+        Ans: "Genus",
+        explanation:
+          "A genus is a taxonomic rank used in biological classification that comes above species and below family. It consists of species which have similar characteristics.",
+      },
+      {
+        Q: "The most specific level of classification, representing a group of individuals that can interbreed and produce fertile offspring is",
+        A: "Genus",
+        B: "Species",
+        C: "Family",
+        D: "Order",
+        Ans: "Species",
+        explanation:
+          "Species is the most specific level of classification in taxonomy. It represents a group of organisms that can interbreed and produce viable, fertile offspring under natural conditions.",
+      },
+      {
+        Q: "Humans are classified with which order?",
+        A: "Rodentia",
+        B: "Primates",
+        C: "Carnivora",
+        D: "Artiodactyla",
+        Ans: "Primates",
+        explanation:
+          "Humans (Homo sapiens) are classified under the order Primates, which also includes apes, monkeys, lemurs, and lorises.",
+      },
+      {
+        Q: "___ are the smallest independently functioning entities in living organisms.",
+        A: "Organs",
+        B: "Tissues",
+        C: "Cells",
+        D: "Organelles",
+        Ans: "Cells",
+        e
