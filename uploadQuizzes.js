@@ -13,7 +13,7 @@ const db = admin.firestore()
 const GITHUB_OWNER = "Dannyblue12"
 const GITHUB_REPO = "my-backend"
 const GITHUB_BRANCH = "main"
-const DIRECTORY = "quizfile"
+const DIRECTORY = "quizfile/Bio101.json"
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
 async function fetchFileList() {
