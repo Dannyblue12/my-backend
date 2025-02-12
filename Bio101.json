@@ -1,6 +1,6 @@
 {
   "biology101": {
-    "partial Questions": [
+    "partialQuestions": [
       {
         "Q": "All these are characteristics of living things except",
         "A": "Movement",
@@ -32,7 +32,7 @@
           "Pathology is the study of diseases and how they affect the body. It deals with the causes, processes, development, and consequences of diseases.",
       },
     ],
-    "complete Questions": [
+    "completeQuestions": [
       {
         "Q": "___ is the biology that determines how drugs and natural substances interact with the body",
         "A": "Pharmacology",
@@ -451,6 +451,6 @@
         "D": "Organelles",
         "Ans": "Cells",
       },
-      ],
-  },
+      ]
+  }
 }
